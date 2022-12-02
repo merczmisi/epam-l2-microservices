@@ -1,0 +1,92 @@
+version: "3.9"
+services:
+  micro-sender:
+    build: ./micro-sender
+    container_name: micro-sender
+    ports:
+      - "8000:8000"
+    networks:
+      - sender
+  micro-recipient:
+    build: ./micro-recipient
+    container_name: micro-recipient
+    ports:
+      - "8080:8080"
+    networks:
+      - recipient
+    depends_on:
+      - rabbitmq
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15692:15692"
+    networks:
+      - sender
+      - recipient
+  micro-collector:
+    build: ./micro-collector
+    container_name: 'micro-collector'
+    ports:
+      - "9160:9160"
+    networks:
+     - recipient
+     - database
+  micro-visualizer:
+    build: ./micro-visualizer
+    container_name: 'micro-visualizer'
+    ports:
+      - "8084:8084"
+    networks:
+      - visualizer
+      - database
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    networks:
+      - sender
+      - recipient
+      - prometheus
+      - visualizer
+
+  grafana:
+    build: ./grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    networks:
+      - prometheus
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+
+  database:
+    image: postgres:14.0-alpine
+    restart: always
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - database
+
+networks:
+  sender:
+  recipient:
+  database:
+  prometheus:
+  visualizer:
+
+volumes:
+  db:
+    driver: local
