@@ -30,8 +30,8 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       -
-        name: Run container
-        run: |
-          echo "${{ needs.build.outputs.jar_version }}"
-          echo "${{ needs.build.outputs.sha_short }}"
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
       
