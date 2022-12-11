@@ -1,0 +1,22 @@
+name: Build/test/Publish
+
+on:
+  [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    outputs:
+      jar_version: ${{ steps.bump.outputs.jar_version }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - run: mvn clean package
+    - run: docker-compose down rmi all
+    - run: docker-compose up
+  
+        
+
+      
