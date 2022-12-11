@@ -34,14 +34,14 @@ services:
     networks:
      - recipient
      - database
-  micro-visualizer:
-    build: ./micro-visualizer
-    container_name: 'micro-visualizer'
-    ports:
-      - "8084:8084"
-    networks:
-      - visualizer
-      - database
+#  micro-visualizer:
+#    build: ./micro-visualizer
+#    container_name: 'micro-visualizer'
+#    ports:
+#      - "8084:8084"
+#    networks:
+#      - visualizer
+#      - database
 
   prometheus:
     image: prom/prometheus
