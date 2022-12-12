@@ -12,8 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: mvn clean package
-    - run: docker-compose down rmi all
-    - run: docker-compose up -d
         
   docker:
     runs-on: ubuntu-latest
@@ -35,5 +33,8 @@ jobs:
         with:
           push: true
           tags: |
-            ghcr.io/merczmisi/epam-l2-microservices:latest
+            ghcr.io/merczmisi/epam-l2-microservices/micro-collector:latest
+            ghcr.io/merczmisi/epam-l2-microservices/micro-recipient:latest
+            ghcr.io/merczmisi/epam-l2-microservices/micro-sender:latest
+            ghcr.io/merczmisi/epam-l2-microservices/grafana:latest
       
