@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: micro-collector/Dockerfile
+          file: epam-l2-microservices/micro-collector/Dockerfile
           push: true
           tags: |
             ghcr.io/merczmisi/epam-l2-microservices/micro-collector:latest
