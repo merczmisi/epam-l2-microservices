@@ -30,8 +30,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       -
-        name: Build and push
+        name: Build and push the Docker image
         uses: docker/build-push-action@v3
         with:
           push: true
+          tags: |
+            ghcr.io/merczmisi/epam-l2-microservices:latest
+          cache-form: type=gha
+          cache-to: type=gha,mode=max
       
