@@ -32,6 +32,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: |
-            ghcr.io/merczmisi/epam-l2-microservices/micro-collector:latest
+          tags: user/epam-le2-microservices/micro-controller:latest
       
