@@ -31,8 +31,6 @@ jobs:
         name: Build and push the Docker image
         uses: docker/build-push-action@v3
         with:
-          working-directory: epam-l2-microservices/micro-collector/
-          file: ./Dockerfile
           push: true
           tags: |
             ghcr.io/merczmisi/epam-l2-microservices/micro-collector:latest
