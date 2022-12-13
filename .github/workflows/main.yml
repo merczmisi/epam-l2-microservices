@@ -31,6 +31,8 @@ jobs:
         name: Build and push the Docker image
         uses: docker/build-push-action@v3
         with:
+          context: ./micro-collector
           push: true
-          tags: user/epam-le2-microservices/micro-controller:latest
+          tags: |
+            ghcr.io/merczmisi/epam-l2-microservices/micro-collector:latest
       
