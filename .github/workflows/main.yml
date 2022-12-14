@@ -48,11 +48,11 @@ jobs:
           
       - name: Run Buildx docker and push
         run: |
-          ls
-          ls micro-collector
+          cd micro-collector
+          ls target
           docker buildx build \
             -t "ghcr.io/merczmisi/epam-l2-microservices/micro-collector:latest" \
-            -f ./micro-collector/Dockerfile \
+            -f ./Dockerfile \
             --push .
             
             
