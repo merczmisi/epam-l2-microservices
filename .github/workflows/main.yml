@@ -40,7 +40,8 @@ jobs:
           
       - shell: bash
         run: |
-          ls
+          mkdir -p target
+          mv micro-collector-1.0-SNAPSHOT.jar /target
       -
         name: Build and push the Docker image
         uses: docker/build-push-action@v3
