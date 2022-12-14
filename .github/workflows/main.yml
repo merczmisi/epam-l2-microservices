@@ -43,4 +43,4 @@ jobs:
         with:
           push: true
           tags: |
-            micro-collector-1.0-SNAPSHOT.jar
+            micro-collector:latest
