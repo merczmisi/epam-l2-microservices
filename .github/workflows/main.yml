@@ -27,9 +27,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: micro-collector
-      - shell: bash
-        run: |
-          ls
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -40,6 +37,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - shell: bash
+        run: |
+          ls
       -
         name: Build and push the Docker image
         uses: docker/build-push-action@v3
