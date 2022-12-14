@@ -26,6 +26,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
+          path: target
           name: micro-collector
       -
         name: Set up Docker Buildx
