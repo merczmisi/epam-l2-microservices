@@ -49,3 +49,4 @@ jobs:
           push: true
           tags: |
             ghcr.io/merczmisi/epam-l2-microservices/micro-collector:latest
+
