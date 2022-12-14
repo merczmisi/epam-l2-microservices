@@ -39,16 +39,13 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
           
-      - shell: bash
+      - name: Run Buildx docker and push
         run: |
-          ls
-          ls target
-      -
-        name: Build and push the Docker image
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          file: ./micro-collector/Dockerfile
-          tags: |
-            ghcr.io/merczmisi/epam-l2-microservices/micro-collector:latest
+          docker buildx build \
+            -t "ghcr.io/merczmisi/epam-l2-microservices/micro-collector:latest" \
+            -f ./micro-collector/Dockerfile \
+            --push .
+            
+            
+
 
