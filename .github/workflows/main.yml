@@ -19,23 +19,12 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: micro-services
-        path: |
-          ./micro-collector/target/micro-collector-1.0-SNAPSHOT.jar
-          ./micro-sender/target/micro-sender-1.0-SNAPSHOT.jar
-          ./micro-recipient/target/micro-recipient-1.0-SNAPSHOT.jar
-    
   docker:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
       - uses: actions/checkout@v2
-      - name: Move folders
-        run: ls
-        shell: bash
+      
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -50,9 +39,22 @@ jobs:
       - name: Run Buildx docker and push
         run: |
           cd micro-collector
-          ls target
           docker buildx build \
             -t "ghcr.io/merczmisi/epam-l2-microservices/micro-collector:latest" \
+            -f ./Dockerfile \
+            --push .
+            
+          cd ..
+          cd micro-sender
+          docker buildx build \
+            -t "ghcr.io/merczmisi/epam-l2-microservices/micro-sender:latest" \
+            -f ./Dockerfile \
+            --push .
+          
+          cd ..
+          cd micro-recipient
+          docker buildx build \
+            -t "ghcr.io/merczmisi/epam-l2-microservices/micro-recipient:latest" \
             -f ./Dockerfile \
             --push .
             
