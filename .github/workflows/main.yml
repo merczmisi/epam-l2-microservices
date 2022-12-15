@@ -19,11 +19,28 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: micro-services
+        path: |
+          ./micro-collector/target/micro-collector-1.0-SNAPSHOT.jar
+          ./micro-sender/target/micro-sender-1.0-SNAPSHOT.jar
+          ./micro-recipient/target/micro-recipient-1.0-SNAPSHOT.jar
+    
   docker:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: micro-services
+      - name: Move folders
+        run: ls
+        shell: bash
       
       -
         name: Set up Docker Buildx
