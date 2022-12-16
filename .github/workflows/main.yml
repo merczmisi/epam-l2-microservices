@@ -95,6 +95,10 @@ jobs:
         uses: azure/k8s-deploy@v4
         with:
           namespace: sg9
+          manifests: |
+            k8s/namespace.yaml
+            k8s/deployment.yaml
+            k8s/service.yaml
           images: |
             ghcr.io/merczmisi/epam-l2-microservices/micro-collector:latest
             ghcr.io/merczmisi/epam-l2-microservices/micro-sender:latest
