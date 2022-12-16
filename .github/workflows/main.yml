@@ -87,4 +87,7 @@ jobs:
           method: service-account
           k8s-url: https://e32ce55e-9d72-4243-abe7-11f59dd66cd5.vultr-k8s.com:6443
           k8s-secret: ${{ secrets.KUBERNETES_SECRET }}
+          
+      - name: Checkout source code
+        uses: actions/checkout@v3
       
